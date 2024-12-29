@@ -1,5 +1,5 @@
 
-# Smart Fingerprint Enabled Voting Mobile Application
+# Smart Fingerprint Enabled Voting Mobile Application/web app
 
 ## Table of Contents
 
