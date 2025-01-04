@@ -17,6 +17,10 @@
 This project is a secure web application for online voting, leveraging fingerprint authentication through compatible devices. It aims to modernize traditional voting systems by incorporating biometric technology to ensure voter authenticity, accessibility, and transparency.
 
 ---
+## Demo
+
+![Demo Image](./demo.jpg)
+
 
 ## Features
 - **Biometric Authentication**: Enables secure fingerprint-based voter verification via supported hardware.  
