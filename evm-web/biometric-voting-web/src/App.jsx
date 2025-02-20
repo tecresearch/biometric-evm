@@ -304,7 +304,36 @@ function App() {
       Deepika : {voteCounts[1]}
     </p>
   </div>
-  
+   {/* Ashutosh */}
+   <div style={{
+    background: 'rgba(255, 255, 255, 0.2)', 
+    padding: '10px', 
+    margin: '5px 0', 
+    borderRadius: '12px', 
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+    backdropFilter: 'blur(10px)',
+    display: 'flex',
+    alignItems: 'center'
+  }}>
+    <img 
+      src="ashu.jpg" 
+      alt="Deepika" 
+      style={{
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        marginRight: '10px'
+      }}
+    />
+    <p style={{
+      margin: '0', 
+      fontSize: '18px', 
+      fontWeight: '500'
+    }}>
+      Ashutosh : {voteCounts[1]}
+    </p>
+  </div>
+
   {/* Ritik */}
   <div style={{
     background: 'rgba(255, 255, 255, 0.2)', 
@@ -337,6 +366,7 @@ function App() {
 </div>
 
  </div>
+
      <div className="rt">
       
 {/* Leads */}
