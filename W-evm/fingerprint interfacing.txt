@@ -1,0 +1,86 @@
+Your R307 Fingerprint Module has 6 wires with the following color codes:
+
+Pinout of R307 (6-wire version)
+Wire Color	Function	Arduino Connection
+Red	VCC (Power 3.3V - 5V)	5V
+Black	GND (Ground)	GND
+Yellow	TXD (Data Transmit)	Digital Pin 2
+Green	RXD (Data Receive)	Digital Pin 3
+Blue	Touch (Not required for basic setup)	N/A
+White	Reset (Not required for basic setup)	N/A
+Connections with Arduino Uno
+Red (VCC) → 5V (on Arduino)
+
+Black (GND) → GND (on Arduino)
+
+Yellow (TXD) → Digital Pin 2 (Software Serial RX)
+
+Green (RXD) → Digital Pin 3 (Software Serial TX)
+
+Blue & White → Not needed (Leave disconnected)
+
+Arduino Code for R307 Fingerprint Module
+This example scans fingerprints and identifies users.
+
+cpp
+Copy
+Edit
+#include <Adafruit_Fingerprint.h>
+#include <SoftwareSerial.h>
+
+// Create a software serial port
+SoftwareSerial mySerial(2, 3);  // RX, TX
+
+// Initialize fingerprint sensor
+Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
+
+void setup() {
+    Serial.begin(9600);       // Serial Monitor
+    mySerial.begin(57600);    // Fingerprint Module Default Baud Rate
+
+    Serial.println("Initializing Fingerprint Module...");
+    
+    if (finger.verifyPassword()) {
+        Serial.println("Fingerprint sensor found!");
+    } else {
+        Serial.println("No fingerprint sensor detected!");
+        while (1);
+    }
+}
+
+void loop() {
+    Serial.println("Place your finger...");
+    getFingerprintID();
+    delay(2000);
+}
+
+void getFingerprintID() {
+    int result = finger.getImage();
+    if (result != FINGERPRINT_OK) return;
+
+    result = finger.image2Tz();
+    if (result != FINGERPRINT_OK) return;
+
+    result = finger.fingerFastSearch();
+    if (result == FINGERPRINT_OK) {
+        Serial.print("Fingerprint ID: ");
+        Serial.println(finger.fingerID);
+    } else {
+        Serial.println("No match found.");
+    }
+}
+Explanation
+Uses SoftwareSerial to communicate with R307.
+
+Initializes the sensor and waits for a fingerprint.
+
+Captures and searches for a match.
+
+Displays the Fingerprint ID if found, otherwise says "No match found."
+
+Next Steps
+✅ Enroll New Fingerprint
+✅ Delete Fingerprint
+✅ Use with LCD Display or IoT for Remote Authentication
+
+Let me know if you need fingerprint enrollment code or a GUI interface
