@@ -43,6 +43,14 @@ CREATE TABLE admins (
     fingerprint_template LONGBLOB NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
++----------------------+--------------+------+-----+-------------------+-------------------+
+| Field                | Type         | Null | Key | Default           | Extra             |
++----------------------+--------------+------+-----+-------------------+-------------------+
+| admin_id             | int          | NO   | PRI | NULL              | auto_increment    |
+| name                 | varchar(100) | NO   |     | NULL              |                   |
+| fingerprint_template | longblob     | NO   |     | NULL              |                   |
+| created_at           | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++----------------------+--------------+------+-----+-------------------+-------------------+
 
 -- Candidates table
 CREATE TABLE candidates (
@@ -54,6 +62,16 @@ CREATE TABLE candidates (
     FOREIGN KEY (created_by) REFERENCES admins(admin_id) ON DELETE CASCADE
 );
 
++----------------------+--------------+------+-----+---------+----------------+
+| Field                | Type         | Null | Key | Default | Extra          |
++----------------------+--------------+------+-----+---------+----------------+
+| candidate_id         | int          | NO   | PRI | NULL    | auto_increment |
+| name                 | varchar(100) | NO   |     | NULL    |                |
+| party                | varchar(100) | YES  |     | NULL    |                |
+| fingerprint_template | longblob     | NO   | MUL | NULL    |                |
+| created_by           | int          | YES  | MUL | NULL    |                |
++----------------------+--------------+------+-----+---------+----------------+
+
 -- Voters table
 CREATE TABLE voters (
     voter_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,6 +80,15 @@ CREATE TABLE voters (
     has_voted BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
++----------------------+--------------+------+-----+-------------------+-------------------+
+| Field                | Type         | Null | Key | Default           | Extra             |
++----------------------+--------------+------+-----+-------------------+-------------------+
+| voter_id             | int          | NO   | PRI | NULL              | auto_increment    |
+| name                 | varchar(100) | NO   |     | NULL              |                   |
+| fingerprint_template | longblob     | NO   | MUL | NULL              |                   |
+| has_voted            | tinyint(1)   | YES  |     | 0                 |                   |
+| created_at           | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++----------------------+--------------+------+-----+-------------------+-------------------+
 
 -- Votes table
 CREATE TABLE votes (
@@ -73,10 +100,38 @@ CREATE TABLE votes (
     FOREIGN KEY (candidate_id) REFERENCES candidates(candidate_id) ON DELETE CASCADE
 );
 
++--------------+-----------+------+-----+-------------------+-------------------+
+| Field        | Type      | Null | Key | Default           | Extra             |
++--------------+-----------+------+-----+-------------------+-------------------+
+| vote_id      | int       | NO   | PRI | NULL              | auto_increment    |
+| voter_id     | int       | NO   | MUL | NULL              |                   |
+| candidate_id | int       | NO   | MUL | NULL              |                   |
+| vote_time    | timestamp | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++--------------+-----------+------+-----+-------------------+-------------------+
+
 -- Create indexes for better performance
 CREATE INDEX idx_voters_fingerprint ON voters(fingerprint_template(255));
 CREATE INDEX idx_admins_fingerprint ON admins(fingerprint_template(255));
 CREATE INDEX idx_candidates_fingerprint ON candidates(fingerprint_template(255));
+
+##Describing Indexes
+
+mysql> SHOW INDEX FROM admins;
++--------+------------+------------------------+--------------+----------------------+-----------+-------------+----------+--------+------+------------+---------+---------------+-------
+| Table  | Non_unique | Key_name               | Seq_in_index | Column_name          | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++--------+------------+------------------------+--------------+----------------------+-----------+-------------+----------+--------+------+------------+---------+---------------+-------
+| admins |          0 | PRIMARY                |            1 | admin_id             | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| admins |          1 | idx_admins_fingerprint |            1 | fingerprint_template | A         |           0 |      255 |   NULL |      | BTREE      |         |               | YES     | NULL       |
++--------+------------+------------------------+--------------+----------------------+-----------+-------------+----------+--------+------+------------+---------+---------------+-------
+
+mysql> SHOW INDEX FROM candidates;
++------------+------------+----------------------------+--------------+----------------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table      | Non_unique | Key_name                   | Seq_in_index | Column_name          | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++------------+------------+----------------------------+--------------+----------------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| candidates |          0 | PRIMARY                    |            1 | candidate_id         | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| candidates |          1 | created_by                 |            1 | created_by           | A         |           0 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| candidates |          1 | idx_candidates_fingerprint |            1 | fingerprint_template | A         |           0 |      255 |   NULL |      | BTREE      |         |               | YES     | NULL       |
++------------+------------+----------------------------+--------------+----------------------+-----------+-------------+----------+--------+------+------------+---------+---------------
 ```
 
 ## 2. Spring Boot REST API Implementation
