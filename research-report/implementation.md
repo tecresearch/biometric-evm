@@ -133,9 +133,43 @@ mysql> SHOW INDEX FROM candidates;
 | candidates |          1 | idx_candidates_fingerprint |            1 | fingerprint_template | A         |           0 |      255 |   NULL |      | BTREE      |         |               | YES     | NULL       |
 +------------+------------+----------------------------+--------------+----------------------+-----------+-------------+----------+--------+------+------------+---------+---------------
 ```
+REST API Documentation
+Base URL
+https://portal.wef-evm.com/api
 
-## 2. Spring Boot REST API Implementation
+Authentication
+Endpoint	Method	Description
+/admin/admin-login	POST	Password-based admin login
+/admin/admin-login-biometric	POST	Fingerprint-based admin login
+Admin Endpoints
+Endpoint	Method	Description
+/admin/login-success-get-center-info	GET	Get voting center info
+/admin/total-voters	GET	Get total registered voters
+/admin/total-candidates	GET	Get total candidates
+/admin/votes-cast	GET	Get total votes cast
+/admin/add-candidate	POST	Add new candidate
+/admin/add-voter	POST	Register new voter
+/admin/candidate-lists	GET	List all candidates
+/admin/analysis	GET	Get voting analytics
+/admin/recent-activity	GET	Get recent system activity
+/admin/evm-health	GET	Check system health status
+Voter Endpoints
+Endpoint	Method	Description
+/voter/verify-fingerprint	POST	Verify voter fingerprint
+/voter/cast-vote	POST	Submit vote
+Candidate Endpoints
+Endpoint	Method	Description
+/candidate/list	GET	List all candidates
+/candidate/{id}	GET	Get candidate details
+ 
 
+```
+
+---
+
+## Notes
+- **Typo**: Endpoint 9 is labeled `candidate-lists` in the image but may intend `candidate-lists`.
+- **Authentication**: The system supports both password and biometric (fingerprint) login for admins.
 ### Project Structure
 ```
 src/
