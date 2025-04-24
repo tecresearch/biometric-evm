@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEF EVM | Admin Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="/resources/css/styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <img src="/public/logo.png" alt="EVM Logo">
+                <h1>Web Enabled Fingerprint EVM</h1>
+            </div>
+            <h2>Admin Portal Login</h2>
+            <p>Secure access to election management system</p>
+        </div>
+
+        <div class="login-tabs">
+            <div class="tab active" id="passwordTab">Password Login</div>
+            <div class="tab" id="fingerprintTab">Fingerprint Login</div>
+        </div>
+
+        <!-- Password Login Form -->
+        <form class="login-form active" id="passwordForm">
+            <div class="form-group">
+                <label for="username">Admin ID</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Enter your admin ID" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <button type="button" class="toggle-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label for="candidatePosition">Orgnization</label>
+                    <select id="candidatePosition" required>
+                        <option value="">Select Position</option>
+                        <option value="R&D Head">GNIOT-BTECH</option>
+                        <option value="Finance Head">GIPS-BCA</option>
+                        <option value="Operations Head">GIPS-MBA</option>
+                        <option value="HR Head">OTHER</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="candidatePosition">Department</label>
+                    <select id="candidatePosition" required>
+                        <option value="">Select Department</option>
+                        <option value="R&D Head">BTECH CSE-IoT</option>
+                        <option value="Finance Head">BCA</option>
+                        <option value="Operations Head">MBA</option>
+                        <option value="HR Head">OTHER</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="candidatePosition">Election</label>
+                    <select id="candidatePosition" required>
+                        <option value="">Select Election</option>
+                        <option value="R&D Head">President</option>
+                        <option value="Finance Head">Vice-President</option>
+                        <option value="Operations Head">Research & Development Head</option>
+                        <option value="HR Head">Technical Head</option>
+                        <option value="HR Head">Treasurer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox"> Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <div class="alternative-login">
+                <p>Or login using</p>
+                <button type="button" class="fingerprint-login-btn" id="switchToFingerprint">
+                    <i class="fas fa-fingerprint"></i> Fingerprint Authentication
+                </button>
+            </div>
+        </form>
+
+        <!-- Fingerprint Login Form -->
+        <form class="login-form" id="fingerprintForm">
+            <div class="fingerprint-login-container">
+                <div class="fingerprint-icon">
+                    <i class="fas fa-fingerprint"></i>
+                </div>
+                <h3>Fingerprint Authentication</h3>
+                <p>Place your registered finger on the scanner</p>
+                
+                <div class="fingerprint-animation">
+                    <div class="fingerprint-lines"></div>
+                </div>
+                
+                <div class="fingerprint-status">
+                    <span class="status-pending">Waiting for fingerprint...</span>
+                </div>
+            </div>
+            
+            <div class="alternative-login">
+                <p>Or login using</p>
+                <button type="button" class="password-login-btn" id="switchToPassword">
+                    <i class="fas fa-key"></i> Username & Password
+                </button>
+            </div>
+        </form>
+
+        <div class="login-footer">
+            <p>© 2023 Web Enabled Fingerprint EVM System</p>
+            <p>for private communities</p>
+        </div>
+    </div>
+
+    <!-- Fingerprint Success Modal -->
+    <div class="modal" id="fingerprintModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Fingerprint Verified</h3>
+            </div>
+            <div class="modal-body">
+                <div class="verification-success">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <p>Fingerprint authentication successful!</p>
+                    <p>Redirecting to admin dashboard...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

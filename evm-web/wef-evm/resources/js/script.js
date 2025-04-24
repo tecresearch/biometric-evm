@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Charts
     initCharts();
     
-    // Modal functionality
+    // Modal functionality : Adding Candidate
     const addCandidateBtn = document.querySelector('.btn-primary');
     const addCandidateModal = document.getElementById('addCandidateModal');
     const closeModalBtns = document.querySelectorAll('.close-modal');
@@ -52,14 +52,67 @@ document.addEventListener('DOMContentLoaded', function() {
             fingerprintStatus.innerHTML = '<span class="status-success">Fingerprint registered successfully!</span>';
         });
     }
+
+    // Modal functionality : Adding Voter
+
+    const addVoterBtn=document.querySelector('#voter-btn');
+    const addVoterModal=document.querySelector('#addVoterModal');
+    if (addVoterBtn) {
+        addVoterBtn.addEventListener('click', function() {
+            addVoterModal.classList.add('active');
+        });
+    }
+
+    closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            addVoterModal.classList.remove('active');
+        });
+    });
     
+     // Close modal when clicking outside
+     addVoterModal.addEventListener('click', function(e) {
+        if (e.target === addVoterModal) {
+            addVoterModal.classList.remove('active');
+        }
+    });
+
+
+
+         // Simulate fingerprint registration for voter
+    const fingerprintRegisterVoter = document.querySelector('.fingerprint-register-voter');
+    if (fingerprintRegisterVoter) {
+        fingerprintRegisterVoter.addEventListener('click', function() {
+            const fingerprintStatusVoter = document.querySelector('.fingerprint-status-voter');
+            fingerprintStatusVoter.innerHTML = '<span class="status-success">Fingerprint registered successfully!</span>';
+        });
+    }
+
+
+      // Form submission
+      const addVoterForm = document.getElementById('addVoterForm');
+      if (addVoterForm) {
+       addVoterForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+              // Simulate form submission
+              const fingerprintStatus = document.querySelector('.fingerprint-status');
+              fingerprintStatus.innerHTML = '<span class="status-success">Fingerprint registered successfully!</span>';
+              
+              setTimeout(() => {
+               addVoterModal.classList.remove('active');
+                  alert('Voter registered successfully!');
+                  addVoterForm.reset();
+                  fingerprintStatus.innerHTML = '<span class="status-pending">Waiting for fingerprint...</span>';
+              }, 1500);
+          });
+      }
+
     // Logout button
     const logoutBtn = document.querySelector('.logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function() {
             if (confirm('Are you sure you want to logout?')) {
                 // Redirect to login page
-                window.location.href = 'login.html';
+                window.location.href = '../pages/login.html';
             }
         });
     }

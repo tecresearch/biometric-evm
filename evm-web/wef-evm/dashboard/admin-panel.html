@@ -6,7 +6,7 @@
     <title>WEF EVM | Web Enabled Fingerprint EVM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/resources/css/styles.css">
 </head>
 <body>
     <div class="container">
@@ -14,11 +14,11 @@
         <header class="header">
             <div class="header-left">
                 <div class="logo">
-                    <img src="logo.png" alt="EVM Logo">
+                    <img src="../public/logo.png" alt="EVM Logo">
                     <h1>Web Enabled Fingerprint EVM</h1>
                 </div>
                 <div class="election-title">
-                    <h2>Private Community Election 2023</h2>
+                    <h2>Private Community Election 2025 : : GNIOT, Department of CSE-IoT : : R&D Head Election</h2>
                 </div>
             </div>
             <div class="header-right">
@@ -86,6 +86,9 @@
                         <button class="btn btn-primary">
                             <i class="fas fa-plus"></i> Add Candidate
                         </button>
+                        <button class="btn btn-warning " id="voter-btn">
+                            <i class="fas fa-plus"></i> Add Voter
+                        </button>
                         <button class="btn btn-secondary">
                             <i class="fas fa-sync-alt"></i> Refresh
                         </button>
@@ -108,7 +111,7 @@
                                 <td>1</td>
                                 <td>
                                     <div class="candidate-profile">
-                                        <img src="avatar1.jpg" alt="Candidate Avatar">
+                                        <img src="../public/img/candidates/brijesh.jpg" alt="Candidate Avatar">
                                         <span>Brijesh Nishad</span>
                                     </div>
                                 </td>
@@ -129,11 +132,11 @@
                                 <td>2</td>
                                 <td>
                                     <div class="candidate-profile">
-                                        <img src="avatar2.jpg" alt="Candidate Avatar">
-                                        <span>Priya Sharma</span>
+                                        <img src="../public/img/candidates/ashu.jpg" alt="Candidate Avatar">
+                                        <span>Ashutosh</span>
                                     </div>
                                 </td>
-                                <td>Finance Head</td>
+                                <td>R&D Head</td>
                                 <td>
                                     <div class="vote-progress">
                                         <div class="progress-bar" style="width: 45%;"></div>
@@ -150,11 +153,11 @@
                                 <td>3</td>
                                 <td>
                                     <div class="candidate-profile">
-                                        <img src="avatar3.jpg" alt="Candidate Avatar">
-                                        <span>Rahul Verma</span>
+                                        <img src="../public/img/candidates/ritik.jpg" alt="Candidate Avatar">
+                                        <span>Ritik Sharma</span>
                                     </div>
                                 </td>
-                                <td>Operations Head</td>
+                                <td>R&D Head</td>
                                 <td>
                                     <div class="vote-progress">
                                         <div class="progress-bar" style="width: 38%;"></div>
@@ -171,11 +174,11 @@
                                 <td>4</td>
                                 <td>
                                     <div class="candidate-profile">
-                                        <img src="avatar4.jpg" alt="Candidate Avatar">
-                                        <span>Anjali Patel</span>
+                                        <img src="../public/img/candidates/deepika.jpeg" alt="Candidate Avatar">
+                                        <span>Deepika</span>
                                     </div>
                                 </td>
-                                <td>HR Head</td>
+                                <td>R&D Head</td>
                                 <td>
                                     <div class="vote-progress">
                                         <div class="progress-bar" style="width: 28%;"></div>
@@ -192,6 +195,9 @@
                     </table>
                 </div>
             </div>
+
+
+          
 
             <!-- Charts Section -->
             <div class="content-section">
@@ -314,10 +320,10 @@
                             <option value="HR Head">HR Head</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="candidatePhoto">Photo</label>
                         <input type="file" id="candidatePhoto" accept="image/*">
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label>Fingerprint Registration</label>
                         <div class="fingerprint-register">
@@ -339,7 +345,41 @@
         </div>
     </div>
 
+      <!-- Add Voter Modal -->
+      <div class="modal " id="addVoterModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Voter</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addVoterForm">
+                    <div class="form-group">
+                        <label for="voterName">Full Name</label>
+                        <input type="text" id="voterName" placeholder="Enter voter's full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fingerprint Registration</label>
+                        <div class="fingerprint-register fingerprint-register-voter">
+                            <div class="fingerprint-icon">
+                                <i class="fas fa-fingerprint"></i>
+                            </div>
+                            <p>Place voter's finger on the scanner to register fingerprint</p>
+                            <div class="fingerprint-status fingerprint-status-voter">
+                                <span class="status-pending">Waiting for fingerprint...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary close-modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Register voter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
+    <script src="/resources/js/script.js"></script>
 </body>
 </html>

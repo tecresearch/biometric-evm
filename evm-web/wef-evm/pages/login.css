@@ -1,0 +1,382 @@
+/* Login Page Styles */
+.login-container {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.login-header .logo img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.login-header .logo h1 {
+    font-size: 1.3rem;
+    color: var(--dark-blue);
+}
+
+.login-header h2 {
+    font-size: 1.5rem;
+    color: var(--dark-gray);
+    margin-bottom: 5px;
+}
+
+.login-header p {
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+}
+
+.login-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--medium-gray);
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.tab.active {
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+}
+
+.login-form {
+    display: none;
+}
+
+.login-form.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark-gray);
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--medium-gray);
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid var(--light-gray);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.input-with-icon input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--medium-gray);
+    cursor: pointer;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    color: var(--medium-gray);
+}
+
+.remember-me input {
+    margin-right: 5px;
+}
+
+.forgot-password {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--blue), var(--dark-blue));
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 20px;
+}
+
+.login-btn:hover {
+    background: linear-gradient(135deg, var(--dark-blue), var(--blue));
+    box-shadow: 0 5px 15px rgba(0, 0, 128, 0.2);
+}
+
+.login-btn i {
+    margin-right: 8px;
+}
+
+.alternative-login {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.alternative-login p {
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.alternative-login p::before,
+.alternative-login p::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background-color: var(--light-gray);
+}
+
+.alternative-login p::before {
+    left: 0;
+}
+
+.alternative-login p::after {
+    right: 0;
+}
+
+.fingerprint-login-btn,
+.password-login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: white;
+    border: 1px solid var(--light-gray);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fingerprint-login-btn {
+    color: var(--green);
+    border-color: var(--green);
+}
+
+.fingerprint-login-btn:hover {
+    background-color: rgba(19, 136, 8, 0.05);
+}
+
+.password-login-btn {
+    color: var(--blue);
+    border-color: var(--blue);
+}
+
+.password-login-btn:hover {
+    background-color: rgba(0, 0, 128, 0.05);
+}
+
+.fingerprint-login-btn i,
+.password-login-btn i {
+    margin-right: 8px;
+}
+
+.fingerprint-login-container {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.fingerprint-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-color: rgba(19, 136, 8, 0.1);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.fingerprint-login-container h3 {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    margin-bottom: 5px;
+}
+
+.fingerprint-login-container p {
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.fingerprint-animation {
+    width: 150px;
+    height: 180px;
+    margin: 0 auto 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--light-gray);
+}
+
+.fingerprint-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 19px,
+        #ddd 19px,
+        #ddd 20px
+    );
+    animation: scan 2s infinite linear;
+}
+
+@keyframes scan {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+.fingerprint-status {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.status-pending {
+    color: var(--saffron);
+}
+
+.status-success {
+    color: var(--green);
+}
+
+.status-error {
+    color: var(--danger);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--light-gray);
+    color: var(--medium-gray);
+    font-size: 0.8rem;
+}
+
+.login-footer p {
+    margin-bottom: 5px;
+}
+
+/* Fingerprint Modal */
+.verification-success {
+    text-align: center;
+    padding: 20px;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-color: rgba(19, 136, 8, 0.1);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+}
+
+.verification-success p {
+    margin-bottom: 10px;
+    color: var(--dark-gray);
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+    .login-container {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    .login-header .logo {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .login-header .logo img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .login-tabs {
+        justify-content: center;
+    }
+    
+    .tab {
+        padding: 10px 15px;
+    }
+}
