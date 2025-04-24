@@ -133,6 +133,7 @@ mysql> SHOW INDEX FROM candidates;
 | candidates |          1 | idx_candidates_fingerprint |            1 | fingerprint_template | A         |           0 |      255 |   NULL |      | BTREE      |         |               | YES     | NULL       |
 +------------+------------+----------------------------+--------------+----------------------+-----------+-------------+----------+--------+------+------------+---------+---------------
 ```
+```
 REST API Documentation
 Base URL
 https://portal.wef-evm.com/api
