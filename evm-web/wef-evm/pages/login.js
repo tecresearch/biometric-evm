@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const logo = document.querySelector('.logo');
+if (logo) {
+    logo.style.cursor = 'pointer'; // Set cursor immediately when page loads
+    logo.addEventListener('click', () => {
+        window.location.href = 'http://localhost:5500/index.html';
+    });
+}
+    
     // Tab switching functionality
     const passwordTab = document.getElementById('passwordTab');
     const fingerprintTab = document.getElementById('fingerprintTab');

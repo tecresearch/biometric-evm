@@ -1,3 +1,13 @@
+
+body{
+      /* from home */
+     
+      align-items: center;
+      background: linear-gradient(135deg, rgba(247, 248, 247, 0.774),rgba(109, 206, 165, 0.774));
+      color: white;
+    
+}
+
 /* Login Page Styles */
 .login-container {
     max-width: 450px;
@@ -6,6 +16,8 @@
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+
+  
 }
 
 .login-header {
