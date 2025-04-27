@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fingerprint Security System</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #00b4db, #0083b0);
+            --success-gradient: linear-gradient(135deg, #56ab2f, #a8e063);
+            --danger-gradient: linear-gradient(135deg, #ff416c, #ff4b2b);
+            --warning-gradient: linear-gradient(135deg, #f46b45, #eea849);
+            --scanner-glow: 0 0 20px rgba(0, 180, 219, 0.7);
+            --success-glow: 0 0 20px rgba(86, 171, 47, 0.7);
+            --error-glow: 0 0 20px rgba(255, 75, 43, 0.7);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .status-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .fingerprint-scanner {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .scanner-placeholder {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            position: relative;
+            overflow: hidden;
+            border: 10px solid #e0e0e0;
+            transition: all 0.5s ease;
+        }
+        
+        .scanner-active {
+            border-color: #00b4db;
+            box-shadow: var(--scanner-glow);
+        }
+        
+        .scanner-success {
+            border-color: #56ab2f;
+            box-shadow: var(--success-glow);
+        }
+        
+        .scanner-error {
+            border-color: #ff4b2b;
+            box-shadow: var(--error-glow);
+        }
+        
+        .scanner-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 40%, rgba(0, 180, 219, 0.4) 100%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .scanner-active .scanner-animation {
+            opacity: 1;
+            animation: scan 1.5s infinite;
+        }
+        
+        .scanner-success .scanner-animation {
+            background: radial-gradient(circle, transparent 40%, rgba(86, 171, 47, 0.4) 100%);
+            animation: pulse 1s 2;
+        }
+        
+        .scanner-error .scanner-animation {
+            background: radial-gradient(circle, transparent 40%, rgba(255, 75, 43, 0.4) 100%);
+            animation: shake 0.5s 3;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        
+        .fingerprint-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #888 1.5px, transparent 2px),
+                radial-gradient(circle at 75% 25%, #888 1.5px, transparent 2px),
+                radial-gradient(circle at 50% 50%, #888 1.5px, transparent 2px),
+                radial-gradient(circle at 25% 75%, #888 1.5px, transparent 2px),
+                radial-gradient(circle at 75% 75%, #888 1.5px, transparent 2px),
+                radial-gradient(circle at 15% 50%, #888 1px, transparent 1.5px),
+                radial-gradient(circle at 85% 50%, #888 1px, transparent 1.5px),
+                radial-gradient(circle at 50% 15%, #888 1px, transparent 1.5px),
+                radial-gradient(circle at 50% 85%, #888 1px, transparent 1.5px);
+            background-size: 100% 100%;
+            opacity: 0.4;
+        }
+        
+        .fingerprint-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.1) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(0, 0, 0, 0.1) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(0, 0, 0, 0.1) 20px);
+            opacity: 0.3;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        #enrollBtn {
+            background: var(--success-gradient);
+        }
+        
+        #matchBtn {
+            background: var(--primary-gradient);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .log-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        #log {
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .log-entry {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .log-time {
+            color: #666;
+            margin-right: 10px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-connected {
+            background: #56ab2f;
+            box-shadow: 0 0 8px #56ab2f;
+        }
+        
+        .status-disconnected {
+            background: #ff4b2b;
+            box-shadow: 0 0 8px #ff4b2b;
+        }
+        
+        .status-processing {
+            background: #eea849;
+            box-shadow: 0 0 8px #eea849;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .status-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .status-detail {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .scanner-message {
+            font-weight: 500;
+            color: #555;
+            min-height: 20px;
+            transition: all 0.3s;
+        }
+        
+        .message-active {
+            color: #0083b0;
+            font-weight: 600;
+        }
+        
+        .message-success {
+            color: #56ab2f;
+            font-weight: 600;
+        }
+        
+        .message-error {
+            color: #ff4b2b;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fingerprint Security System</h1>
+            <p>Biometric access control panel</p>
+        </header>
+        
+        <div class="dashboard">
+            <div class="status-panel">
+                <div class="status-title">
+                    <span id="statusIndicator" class="status-indicator status-disconnected"></span>
+                    <span id="statusText">Connecting to device...</span>
+                </div>
+                <div class="status-detail">
+                    <div id="statusDetail">Establishing connection with fingerprint scanner...</div>
+                </div>
+            </div>
+            
+            <div class="fingerprint-scanner">
+                <h3>Fingerprint Scanner</h3>
+                <div id="scanner" class="scanner-placeholder">
+                    <div class="fingerprint-pattern"></div>
+                    <div class="fingerprint-lines"></div>
+                    <div class="scanner-animation"></div>
+                </div>
+                <p id="scannerMessage" class="scanner-message">Place your finger on the scanner</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="enrollBtn" disabled>Enroll Fingerprint</button>
+            <button id="matchBtn" disabled>Verify Fingerprint</button>
+        </div>
+        
+        <div class="log-container">
+            <h3>System Log</h3>
+            <div id="log"></div>
+        </div>
+    </div>
+
+    <script src="socket.js"></script>
+</body>
+</html>
