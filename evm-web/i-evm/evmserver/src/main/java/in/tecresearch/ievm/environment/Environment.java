@@ -1,25 +1,38 @@
 package in.tecresearch.ievm.environment;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 public class Environment {
-    public static void loadEnv(){
+    public static void loadEnv() {
+        try {
+            Dotenv dotenv = Dotenv.configure()
+                    .filename(".env")
+                    .ignoreIfMissing()
+                    .load();
 
-        // Load corresponding .env file
-        Dotenv dotenv = Dotenv.configure()
-                .filename(".env")
-                .load();
+            String activeProfile = System.getProperty("env",
+                    dotenv.get("SPRING_PROFILES_ACTIVE", "dev"));
 
-        // Get the environment profile passed via command-line argument or default to 'dev'
-        String env = System.getProperty("env", dotenv.get("SPRING_PROFILES_ACTIVE"));
+            // Get raw URI based on profile
+            String mongoUri = "prod".equalsIgnoreCase(activeProfile)
+                    ? dotenv.get("MONGODB_URI_PROD")
+                    : dotenv.get("MONGODB_URI_DEV");
 
-        if("production".equalsIgnoreCase(env)){
-            System.setProperty("MONGODB_URI",dotenv.get("MONGODB_URI_PROD"));
-            System.setProperty("spring.profiles.active", "production");
-        }else{
-            System.setProperty("MONGODB_URI",dotenv.get("MONGODB_URI_DEV"));
-            System.setProperty("spring.profiles.active", "dev");
+            // Set system properties
+            System.setProperty("MONGODB_URI", mongoUri);
+            System.setProperty("DATABASE_NAME", dotenv.get("DATABASE_NAME"));
+            System.setProperty("ACTIVE_PROFILE", activeProfile.toLowerCase());
+
+            System.out.println("Active Profile: " + activeProfile);
+            System.out.println("Using MongoDB URI: " + mongoUri);
+
+        } catch (Exception e) {
+            System.err.println("Failed to load environment: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
         }
-        System.out.println("Deployment Profile: "+env);
     }
+
 }
