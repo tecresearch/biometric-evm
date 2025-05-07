@@ -1,0 +1,29 @@
+// Fingerprint Sensor Configuration (Using Serial2)
+#define FINGERPRINT_RX 16  // ESP32 RX2 (Connect to sensor TX)
+#define FINGERPRINT_TX 17  // ESP32 TX2 (Connect to sensor RX)
+HardwareSerial fingerSerial(2);
+Adafruit_Fingerprint finger = Adafruit_Fingerprint(&fingerSerial);
+
+// Fingerprint Sensor Initialization
+void initializeFingerprintSensor() {
+  fingerSerial.begin(57600, SERIAL_8N1, FINGERPRINT_RX, FINGERPRINT_TX);
+  
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+  display.println("Initializing Sensor...");
+  display.display();
+  
+  finger.begin(57600);
+  
+  if (finger.verifyPassword()) {
+    currentState = STATE_CONNECTED;
+    Serial.println("Sensor found");
+    Serial.print("Capacity: "); Serial.println(finger.capacity);
+  } else {
+    currentState = STATE_DISCONNECTED;
+    Serial.println("Sensor not found missing wiring");
+  }
+  updateDisplay();
+}

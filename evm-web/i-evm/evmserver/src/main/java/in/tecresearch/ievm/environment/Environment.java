@@ -26,7 +26,7 @@ public class Environment {
             System.setProperty("ACTIVE_PROFILE", activeProfile.toLowerCase());
 
             System.out.println("Active Profile: " + activeProfile);
-            System.out.println("Using MongoDB URI: " + mongoUri);
+
 
         } catch (Exception e) {
             System.err.println("Failed to load environment: " + e.getMessage());

@@ -1,0 +1,6 @@
+#include <Wire.h>                   // For I2C communication (OLED)
+#include <Adafruit_GFX.h>           // Core graphics library for displays
+#include <Adafruit_SSD1306.h>       // OLED display library
+#include <WiFi.h>                   // ESP32 WiFi functionality
+#include <WebSocketsServer.h>       // WebSocket server for real-time communication
+#include <Adafruit_Fingerprint.h>   // Fingerprint sensor library

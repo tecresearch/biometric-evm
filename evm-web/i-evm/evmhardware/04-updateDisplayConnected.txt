@@ -1,0 +1,9 @@
+case STATE_CONNECTED:
+  display.println("Web Enabled ");
+  display.println("Fingerprint EVM");
+  display.println("_______________");
+  display.println("System Ready");
+  display.print("Stored:"); display.println(finger.templateCount);
+  display.print("IP:"); display.println(WiFi.localIP());
+  display.println("Admin:Mr.Brijesh ");
+  break;
