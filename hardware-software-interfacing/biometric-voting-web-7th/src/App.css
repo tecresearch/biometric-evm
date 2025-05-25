@@ -1,0 +1,141 @@
+/* General Styles */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.App {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f9;
+  display: flex;
+  gap: 5;
+}
+
+/* Headings */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Procedure Buttons */
+.procedure-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.procedure-btn {
+  padding: 12px 24px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4),
+              0 6px 20px rgba(76, 175, 80, 0.2);
+}
+
+.procedure-btn:hover {
+  background-color: #45a049;
+  box-shadow: 0 4px 15px rgba(69, 160, 73, 0.5),
+              0 8px 25px rgba(69, 160, 73, 0.3);
+}
+
+.procedure-btn:disabled {
+  background-color: #bbb;
+  box-shadow: none;
+}
+
+/* Voting Buttons */
+.vote-btn {
+  padding: 12px 24px;
+  background-color: #2196f3;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.4),
+              0 6px 20px rgba(33, 150, 243, 0.2);
+}
+
+.vote-btn:hover {
+  background-color: #1e88e5;
+  box-shadow: 0 4px 15px rgba(30, 136, 229, 0.5),
+              0 8px 25px rgba(30, 136, 229, 0.3);
+}
+
+.vote-btn:disabled {
+  background-color: #bbb;
+  box-shadow: none;
+}
+
+/* LED Indicators */
+.led-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.led {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+.led.on {
+  background-color: green;
+  color: white;
+}
+
+/* Results */
+.results, .leads, .winner {
+  margin-top: 30px;
+}
+
+/* RT Section */
+.rt {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #9f9fe2, #f0f0f5);
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 600px;
+  line-height: 1.5;
+  font-size: 1.2rem;
+}
+
+/* Reset Button */
+.reset-button {
+  padding: 15px 30px;
+  background-color: #f44336;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 10px rgba(244, 67, 54, 0.4),
+              0 6px 20px rgba(244, 67, 54, 0.2);
+}
+
+.reset-button:hover {
+  background-color: #e53935;
+  box-shadow: 0 4px 15px rgba(229, 57, 53, 0.5),
+              0 8px 25px rgba(229, 57, 53, 0.3);
+}

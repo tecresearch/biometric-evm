@@ -1,0 +1,41 @@
+<!-- Add this to your web client HTML -->
+<div id="ledStatus" style="width: 50px; height: 50px; border-radius: 50%; margin: 20px 0; border: 1px solid #333;"></div>
+
+<script>
+// Update this in your websocket onmessage handler
+function updateStatus(state) {
+  statusDiv.textContent = 'Status: ' + state;
+  const led = document.getElementById('ledStatus');
+  
+  switch(state) {
+    case 'disconnected':
+      led.style.backgroundColor = '#ff0000';
+      led.style.animation = 'blink 1s infinite';
+      break;
+    case 'connected':
+      led.style.backgroundColor = '#0000ff';
+      led.style.animation = 'none';
+      break;
+    case 'enrolling':
+      led.style.backgroundColor = '#ff00ff';
+      break;
+    case 'matching':
+      led.style.backgroundColor = '#00ffff';
+      break;
+    case 'enroll_success':
+    case 'match_success':
+      led.style.backgroundColor = '#00ff00';
+      break;
+    case 'error':
+      led.style.backgroundColor = '#ff0000';
+      break;
+  }
+}
+
+// Add to your CSS
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+</script>

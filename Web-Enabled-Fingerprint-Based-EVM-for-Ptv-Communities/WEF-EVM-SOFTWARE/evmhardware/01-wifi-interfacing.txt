@@ -1,0 +1,26 @@
+// WiFi Configuration
+const char* ssid = "TCA@Admin";
+const char* password = "Shivam@9211";
+
+// WiFi Connection Function
+void connectToWiFi() {
+  display.clearDisplay();
+  display.setCursor(0, 0);
+  display.println("Connecting to WiFi");
+  display.println(ssid);
+  display.display();
+  
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    display.print(".");
+    display.display();
+  }
+  
+  display.clearDisplay();
+  display.println("WiFi connected");
+  display.print("IP: ");
+  display.println(WiFi.localIP());
+  display.display();
+  delay(2000);
+}

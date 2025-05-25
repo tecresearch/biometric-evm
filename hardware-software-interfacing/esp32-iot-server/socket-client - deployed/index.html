@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 LED Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --background-color: #f5f7fa;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --success-color: #4caf50;
+            --error-color: #f44336;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--card-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .status-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #cccccc;
+            transition: background-color 0.3s;
+        }
+        
+        .status-text {
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .connection-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            font-size: 0.9rem;
+        }
+        
+        .led-visualization {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 1rem auto;
+            background-color: #ee0303;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+        
+        .led-on {
+            background-color: #ffeb3b;
+            box-shadow: 0 0 20px #ffeb3b, inset 0 0 10px #ffc107;
+        }
+        
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ESP32 LED Control</h1>
+        
+        <div class="led-visualization" id="ledVisual"></div>
+        
+        <div class="status-indicator">
+            <div class="status-dot" id="connectionDot"></div>
+            <span class="status-text" id="connectionStatus">Disconnected</span>
+        </div>
+        
+        <button class="btn" id="toggleBtn" onclick="toggleLED()" disabled>Toggle LED</button>
+        
+        <div class="chart-container">
+            <canvas id="ledHistoryChart"></canvas>
+        </div>
+        
+        <div class="connection-status" id="connectionInfo">
+            Connecting to ESP32...
+        </div>
+    </div>
+
+    <script>
+        // Chart setup
+        const ctx = document.getElementById('ledHistoryChart').getContext('2d');
+        let ledHistoryChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'LED State',
+                    data: [],
+                    borderColor: '#4a6fa5',
+                    backgroundColor: 'rgba(74, 111, 165, 0.1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#4a6fa5',
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    fill: true,
+                    tension: 0.4,
+                    stepped: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 1,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                return value === 1 ? 'ON' : (value === 0 ? 'OFF' : '');
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y === 1 ? 'LED ON' : 'LED OFF';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // LED state history
+        let ledStates = [];
+        const maxDataPoints = 20; // Limit the number of points to show
+        
+        function updateChart(timestamp, state) {
+            // Add new data point
+            ledStates.push({x: timestamp, y: state ? 1 : 0});
+            
+            // Limit the number of points
+            if (ledStates.length > maxDataPoints) {
+                ledStates.shift();
+            }
+            
+            // Update chart data
+            ledHistoryChart.data.labels = ledStates.map(point => point.x);
+            ledHistoryChart.data.datasets[0].data = ledStates.map(point => point.y);
+            ledHistoryChart.update();
+        }
+
+        // Simulate initial data (replace with real WebSocket data)
+        function initializeSimulatedData() {
+            const now = new Date();
+            for (let i = 9; i >= 0; i--) {
+                const time = new Date(now.getTime() - i * 2000);
+                const state = Math.random() > 0.5;
+                updateChart(time.toLocaleTimeString(), state);
+            }
+        }
+        
+        // Initialize with some sample data
+        initializeSimulatedData();
+
+        // LED control functions (to be integrated with your WebSocket code)
+        function toggleLED() {
+            // This should be called from your WebSocket implementation
+            const ledVisual = document.getElementById('ledVisual');
+            const isOn = ledVisual.classList.contains('led-on');
+            
+            // Toggle LED visual state
+            if (isOn) {
+                ledVisual.classList.remove('led-on');
+            } else {
+                ledVisual.classList.add('led-on');
+            }
+            
+            // Update chart with new state
+            updateChart(new Date().toLocaleTimeString(), !isOn);
+        }
+
+        // Simulate button click for demo
+        document.getElementById('toggleBtn').disabled = false;
+        
+        // This would be in your websocket.js:
+        // When receiving LED state updates, call:
+        // updateChart(timestamp, state);
+        // And update the LED visual accordingly
+    </script>
+    <script src="websocket.js"></script>
+</body>
+</html>
