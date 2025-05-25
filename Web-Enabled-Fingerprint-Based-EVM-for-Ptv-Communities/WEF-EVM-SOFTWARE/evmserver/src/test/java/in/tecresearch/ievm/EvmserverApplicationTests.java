@@ -2,12 +2,12 @@ package in.tecresearch.ievm;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-class EvmserverApplicationTests {
-
+@ActiveProfiles("test")
+public class EvmserverApplicationTests {
     @Test
-    void contextLoads() {
+    public void contextLoads() {
     }
-
 }
