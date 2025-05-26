@@ -1,7 +1,7 @@
 #WEB ENABLED FINGERPRINT BASED
 ELECTRONIC VOTING MACHINE FOR 
 PRIVATE COMMUNITIES
-
+Video Presentation: https://prezi.com/view/lXIbxe0IJDwaCY9obqoE/
 ## 1. Database Implementation
 
 ### ER Diagram
