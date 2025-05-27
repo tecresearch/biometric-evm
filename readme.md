@@ -2,6 +2,8 @@
 ELECTRONIC VOTING MACHINE FOR 
 PRIVATE COMMUNITIES
 Video Presentation: https://prezi.com/view/lXIbxe0IJDwaCY9obqoE/
+---
+wef-evm https://prezi.com/view/f8lS79sH9epdUUfRNuiO/
 ## 1. Database Implementation
 
 ### ER Diagram
