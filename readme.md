@@ -1,13 +1,17 @@
-#WEB ENABLED FINGERPRINT BASED
-ELECTRONIC VOTING MACHINE FOR 
-PRIVATE COMMUNITIES : [![Download Video Presentation](https://img.shields.io/badge/Download-Project%20Demo%20Video-blue?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/tecresearch/biometric-evm/main/web-enabled-fingerprint-based-electronic-voting-machine-for-private-communities.mp4)
+# WEB ENABLED FINGERPRINT BASED  
+ELECTRONIC VOTING MACHINE FOR  
+PRIVATE COMMUNITIES
+
+[![Download Video Presentation](https://img.shields.io/badge/Download-Project%20Demo%20Video-blue?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/tecresearch/biometric-evm/main/web-enabled-fingerprint-based-electronic-voting-machine-for-private-communities.mp4)
 
 ---
-Video Presentation: https://prezi.com/view/lXIbxe0IJDwaCY9obqoE/
----
-College Project Presentation : wef-evm https://prezi.com/view/f8lS79sH9epdUUfRNuiO/
----
-ICAISI-2025 Conference Presentation : https://prezi.com/view/xQzXapWVuGjrTCVYnx6D/
+
+### 📽️ Video Presentations
+
+- 🔗 [General Video Presentation (Prezi)](https://prezi.com/view/lXIbxe0IJDwaCY9obqoE/)
+- 🎓 [College Project Presentation: WEF-EVM (Prezi)](https://prezi.com/view/f8lS79sH9epdUUfRNuiO/)
+- 🧠 [ICAISI-2025 Conference Presentation (Prezi)](https://prezi.com/view/xQzXapWVuGjrTCVYnx6D/)
+
 ---
 ## 1. Database Implementation
 
