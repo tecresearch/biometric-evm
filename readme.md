@@ -1,9 +1,11 @@
 #WEB ENABLED FINGERPRINT BASED
 ELECTRONIC VOTING MACHINE FOR 
 PRIVATE COMMUNITIES
+---
 Video Presentation: https://prezi.com/view/lXIbxe0IJDwaCY9obqoE/
 ---
-wef-evm https://prezi.com/view/f8lS79sH9epdUUfRNuiO/
+College Project Presentation : wef-evm https://prezi.com/view/f8lS79sH9epdUUfRNuiO/
+ICAISI-2025 Conference Presentation : https://prezi.com/view/xQzXapWVuGjrTCVYnx6D/
 ## 1. Database Implementation
 
 ### ER Diagram
